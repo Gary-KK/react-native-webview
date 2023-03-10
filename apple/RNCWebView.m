@@ -339,7 +339,14 @@ RCTAutoInsetsProtocol>
 {
   WKWebViewConfiguration *wkWebViewConfig = [WKWebViewConfiguration new];
   WKPreferences *prefs = [[WKPreferences alloc]init];
-  BOOL _prefsUsed = NO;
+  BOOL _prefsUsed = YES;
+    
+  if (@available(iOS 13.0, *)) {
+    prefs.fraudulentWebsiteWarningEnabled = NO;
+  } else {
+    // Fallback on earlier versions
+  }
+
   if (!_javaScriptEnabled) {
     prefs.javaScriptEnabled = NO;
     _prefsUsed = YES;
